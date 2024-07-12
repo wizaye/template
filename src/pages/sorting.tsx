@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
-import { Button, Slider } from "@nextui-org/react";
+import { Button, Slider, Divider } from "@nextui-org/react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -64,9 +64,10 @@ function ArraySizeSlider({ arraySize, onArraySizeChange }: ArraySizeSliderProps)
     <Slider
       value={arraySize}
       minValue={10}
-      maxValue={100}
+      maxValue={50}
       step={1}
       onChange={(value) => onArraySizeChange(value as number)}
+      style={{ width: '300px' }}  // Adjust the width to fit the design
     />
   );
 }
@@ -304,24 +305,20 @@ export default function SortingPage() {
 
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <section className="flex flex-col items-center justify-center gap-6 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
           <h1 className={title()}>Sorting</h1>
         </div>
-        <AlgorithmDropdown
-          selectedAlgorithm={selectedAlgorithm}
-          onAlgorithmChange={handleAlgorithmChange}
-        />
-        <ArraySizeSlider
-          arraySize={arraySize}
-          onArraySizeChange={handleArraySizeChange}
-        />
-        <RandomizeButton onRandomize={handleRandomize} />
-        <MuteButton isMuted={isMuted} onToggleMute={handleToggleMute} />
-        <SortButton onSort={handleSort} />
         <div style={{ marginTop: "20px" }}>
           <h2>Array:</h2>
-          <div style={{ display: "flex", alignItems: "flex-end", height: "200px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              height: "200px",
+              overflowX: "auto",
+            }}
+          >
             {array.map((value, index) => (
               <div
                 key={index}
@@ -335,6 +332,24 @@ export default function SortingPage() {
             ))}
           </div>
         </div>
+        <Divider />
+        <div className="flex flex-col md:flex-row gap-4 items-center">
+          <AlgorithmDropdown
+            selectedAlgorithm={selectedAlgorithm}
+            onAlgorithmChange={handleAlgorithmChange}
+          />
+          <ArraySizeSlider
+            arraySize={arraySize}
+            onArraySizeChange={handleArraySizeChange}
+          />
+          <MuteButton isMuted={isMuted} onToggleMute={handleToggleMute} />
+        </div>
+        <div className="flex flex-row gap-4 mt-4">
+          <RandomizeButton onRandomize={handleRandomize} />
+          <SortButton onSort={handleSort} />
+          
+        </div>
+       
       </section>
     </DefaultLayout>
   );
