@@ -309,26 +309,26 @@ export default function SortingPage() {
         <div className="inline-block max-w-lg text-center justify-center">
           <h1 className={title()}>Sorting</h1>
         </div>
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ marginTop: "20px", width: "100%", maxWidth: "600px", overflowX: "auto" }}>
           <h2>Array:</h2>
           <div
             style={{
               display: "flex",
               alignItems: "flex-end",
               height: "200px",
-              overflowX: "auto",
+              width: "100%",
             }}
           >
             {array.map((value, index) => (
               <div
-                key={index}
-                style={{
-                  width: "20px",
-                  height: `${value * 2}px`,
-                  backgroundColor: sortedArray.includes(value) ? "#6EE7B7" : "#F76C6C",
-                  margin: "0 1px",
-                }}
-              />
+              key={index}
+              style={{
+                width: `${Math.max(600 / array.length, 5)}px`, // Ensure a minimum width for very large arrays
+                height: `${value * 2}px`,
+                backgroundColor: sortedArray.includes(value) ? "#6EE7B7" : "#F76C6C",
+                margin: "0 1px",
+              }}
+            />
             ))}
           </div>
         </div>
@@ -347,9 +347,7 @@ export default function SortingPage() {
         <div className="flex flex-row gap-4 mt-4">
           <RandomizeButton onRandomize={handleRandomize} />
           <SortButton onSort={handleSort} />
-          
         </div>
-       
       </section>
     </DefaultLayout>
   );
